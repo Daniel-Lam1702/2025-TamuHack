@@ -10,27 +10,23 @@ Make sure you have the following installed:
 - Node.js (version 14.18+ or 16+)
 - npm (version 6+)
 
-**Clone the repository:**
-    ```
-    git clone https://github.com/Daniel-Lam1702/2025-TamuHack.git
-    ```
-
 ### Installation
 
-1. **Change directory to the front-end folder:**
-    ```
+1. **Clone the repository:**
+    ```sh
+    git clone https://github.com/Daniel-Lam1702/2025-TamuHack.git
     cd front-end
     ```
 
 2. **Install dependencies:**
-    ```
+    ```sh
     npm install
     ```
 
 ### Running the Project
 
 1. **Start the development server:**
-    ```
+    ```sh
     npm run dev
     ```
 
@@ -42,9 +38,9 @@ Make sure you have the following installed:
 ### Build for Production
 
 To create a production build, run:
-    ```
-    npm run build
-    ```
+```sh
+npm run build
+```
 
 # Back-end
 1. Change to the back-end folder:
