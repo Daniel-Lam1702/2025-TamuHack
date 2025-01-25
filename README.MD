@@ -68,7 +68,9 @@ To create a production build, run:
     cd api
     python manage.py runserver
     ```
-6. If a new library is created execute:
+6. Add the .env file (sent to discord) to the back-end/api folder
+
+7. If a new library is created execute:
     ```
     pip freeze > requirements.txt
     ```
