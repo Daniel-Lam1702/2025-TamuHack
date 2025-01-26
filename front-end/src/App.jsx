@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import Vehicles from './Vehicles';
 import Pages from './components/pages/Pages';
+import ChatBox from './Chatbox';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -18,7 +19,7 @@ function App() {
                 <img className="w-20" src="./images/logo.jpg" alt="Logo" />
                 <h1 className="text-red-500 text-7xl font-Toyota">TOYOTA</h1>
               </div>
-              <div className="ml-auto flex items-center justify-center">
+              <div className="ml-auto flex items-center justify-center"> 
                 <Link 
                   to="/vehicles" 
                   className="rounded-2xl mr-16 px-3 py-1.5 bg-red-500 text-2xl text-white hover:bg-red-900"
@@ -33,6 +34,7 @@ function App() {
           </div>
         } />
         <Route path="/vehicles" element={<Vehicles />} />
+        <Route path="/chatbot" element={<ChatBox/>} />
       </Routes>
     </Router>
   );
