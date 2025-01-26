@@ -22,11 +22,13 @@ class ToyotaVehicle(models.Model):
     cost_savings = models.IntegerField()
     atv_category = models.CharField(max_length=50, null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    seats = models.IntegerField(null=True, blank=True)
+    seats = models.IntegerField(null=True, blank=True),
+    image_url = models.URLField(blank=True, null=True)  # Field to store the image URL
 
     class Meta:
         db_table = "toyota_vehicles"  # Ensure Django maps to existing table
         managed = False  # Prevent Django from modifying the table
 
     def __str__(self):
-        return self.model
+        return f"{self.model}{self.model_year}"
+

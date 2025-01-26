@@ -7,14 +7,13 @@
     overflow: hidden;
     justify-content: space-between;
     position: relative;
-    background-image: url('../../../images/redcar.jpg');
-    background-size: cover;
-    background-position: center;
 }
 
 .home-content {
+    max-width: 630px;
     background-image: url('../../../images/redcar.jpg');
-    /*max-width: 630px;*/
+    background-size: cover;
+    background-position: center;
 }
 
 .home-content h1 {
@@ -33,6 +32,7 @@
     opacity: 0;
     animation: slideRight 1s ease forwards;
     animation-delay: 1.3s;
+    z-index: 3000;
 }
 
 .home-content p {
