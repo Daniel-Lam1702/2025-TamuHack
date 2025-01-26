@@ -7,14 +7,17 @@
     overflow: hidden;
     justify-content: space-between;
     position: relative;
-}
-
-.home-content {
-    max-width: 630px;
-    background-image: url('../../../images/redcar.jpg');
+    background-image: url('../../../images/highway6.png');
     background-size: cover;
     background-position: center;
 }
+
+/*.home-content {
+    /*max-width: 630px;
+    background-image: url('../../../images/redcar.jpg');
+    background-size: cover;
+    background-position: center;
+}*/
 
 .home-content h1 {
     font-size: 50px;

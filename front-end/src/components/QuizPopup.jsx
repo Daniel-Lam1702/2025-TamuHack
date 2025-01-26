@@ -59,6 +59,23 @@ export default function QuizPopup(setPopup) {
         {
             //change page to Vehicle Catalog
             //with filters based on quizResults
+            //http://127.0.0.1:8000/api/toyota_vehicles/?
+            // price=quizResults[0]&
+            // key=<value2>&
+            // Fuel_type=quizResults[2]&
+            // key=<value4>&
+            // key=<value5>&
+            // co2_emissions= low OR fuel_type=electric OR epa_fuel_score = GOOD&
+            // vehicle_type=quizResults[7]&
+            // vehicle_size=quizResults[8]
+                //[0] price
+                //[1] hybrid
+                //[2] fuel
+                //[3] short/long distance (road trips/lots of stops)
+                //[4] special uses (off roading/racing/general)
+                //[5] environmental footprint
+                //[6] vehicle type (SUV/car/truck)
+                //[7] type of vehicle type 
             //endpoint queries from database to filter search results
         }
         if (currentQuestionIndex == quizQuestions.length - 1) 
@@ -88,7 +105,7 @@ export default function QuizPopup(setPopup) {
     console.log(quizResults);
 
     return (
-        <div className="absolute inset-0 bg-white w-4/5 h-fit pb-8 rounded-2xl flex flex-col justify-top items-start pt-0 mx-16 my-10">
+        <div className="absolute inset-0 bg-white w-4/5 h-fit pb-8 opacity-100 rounded-2xl flex flex-col justify-top items-start pt-0 mx-16 my-10">
             <h3 className="ml-5 mb-10 mt-5 pt-0 text-8xl text-red-500">Question {currentQuestionIndex + 1}</h3>
             <h3 className = "ml-6 text-4xl text-red-500 font-toyota">{currentQuestion.question}</h3>
             {currentQuestion.options.map((choice, index) => (
