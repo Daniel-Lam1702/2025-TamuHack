@@ -12,11 +12,6 @@
     background-position: center;
 }
 
-.home-content {
-    background-image: url('../../../images/redcar.jpg');
-    /*max-width: 630px;*/
-}
-
 .home-content h1 {
     font-size: 50px;
     color: white;
@@ -33,6 +28,7 @@
     opacity: 0;
     animation: slideRight 1s ease forwards;
     animation-delay: 1.3s;
+    z-index: 3000;
 }
 
 .home-content p {

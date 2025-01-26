@@ -5,7 +5,8 @@ import Vehicles from './Vehicles';
 import Pages from './components/pages/Pages';
 
 function App() {
-  const [popup, setPopupOpen] = useState(false);
+  const [count, setCount] = useState(0);
+  const[popup, setPopupOpen] = useState(false);
 
   return (
     <Router>
