@@ -2,33 +2,46 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import Vehicles from './Vehicles';
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="pt-1.5 m-0 w-full h-full flex flex-col gap-4 border-0">
+      <div className= "top-0 gap-10 h-full" style={{ display: 'flex' }}>
+        <div className="left-0 pl-3 gap-10" style={{ display: 'flex' }}>
+          <img className = "w-20" src="./images/logo.jpg"></img>
+          <h1 className="text-red-500 text-7xl font-Toyota ">TOYOTA</h1>
+        </div>
+        <div className="ml-auto flex items-center justify-center">
+          <ul className="rounded-2xl mr-16 px-3 py-1.5 bg-red-500 text-2xl text-white hover:bg-red-900">
+            <li><a href="/Vehicles">Vehicles</a></li>
+          </ul>
+          {/*<button className="rounded-2xl mr-16 px-3 py-1.5 bg-red-500 text-2xl text-white hover:bg-red-900" onClick="">
+            Vehicles
+          </button>*/}
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="relative bg-linear-to-t justify-center from-black to-red-500">
+        <div className="w-full px-0 place-items-center">
+          <img className = "w-fit" src="./images/redcar.jpg"></img>
+        </div>
+        <div className="absolute inset-0 h-auto w-full bg-black opacity-75 flex-col flex items-center justify-center gap-4 py-8">
+          <h1 className="text-white font-Toyota text-3xl pb-4 items-center">
+            Take this quiz to discover your ideal car.
+          </h1>
+          <button className="rounded-2xl px-3 py-1.5 bg-red-500 text-2xl text-white hover:bg-red-900" onClick="">
+              Learn More
+          </button>
+        </div>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      <div className="w-full px-0 place-items-center">
+        <img className = "w-150" src="./images/dirtcar.avif"></img>
+      </div>
+      {window.location.pathname === '/Vehicles' && <Vehicles />}
+      {window.location.pathname === '/home' && <App />}
+    </div>
   )
 }
 

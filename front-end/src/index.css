@@ -1,5 +1,24 @@
 @import "tailwindcss";
-:root {
+
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  box-sizing: border-box; 
+}
+
+body {
+  font-family: 'Toyota', sans-serif; 
+}
+
+@font-face {
+  font-family: 'Toyota';
+  src: url('/fonts/toyota.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+/*}:root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -66,5 +85,5 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+}*/
 
