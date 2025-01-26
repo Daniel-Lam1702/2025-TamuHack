@@ -15,6 +15,7 @@ ALLOWED_HOSTS = [
     "toyotallyyours.tech",
     "localhost",
     "127.0.0.1",
+    "two025-tamuhack.onrender.com"
 ]
 
 # Application definition
