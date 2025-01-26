@@ -4,7 +4,8 @@ from .models import ChatBot
 from django.http import HttpResponseRedirect, JsonResponse
 import google.generativeai as genai
 # Create your views here.
-
+from vehicles.models import ToyotaVehicle
+from vehicles.serializers import ToyotaVehicleSerializer
 
 # Configure the API key for genai
 genai.configure(api_key="AIzaSyCndhNGwAwdI_MAAnez7IGN2hvFCuby_gs")
@@ -14,6 +15,10 @@ def home(request):
 
 def ask_question(request):
     if request.method == "POST":
+        queryset = ToyotaVehicle.objects.all()
+        serializer = ToyotaVehicleSerializer(queryset, many=True)
+        json_serializer = serializer.data
+
         text = request.POST.get("text")
         model = genai.GenerativeModel("gemini-pro")
         chat = model.start_chat()
