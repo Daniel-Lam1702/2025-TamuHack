@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import { useState } from 'react';
 import './Pages.css';
 
@@ -33,6 +34,18 @@ const Pages = () => {
                         <button onClick={() => closePopup()}>Close</button>
                     </div>
                 )} 
+=======
+import './Pages.css';
+
+const Pages = () => { 
+    return ( 
+        <section className="home">
+            <div className="home-content">
+                <h1>Welcome to TOYOTA CARBOT</h1>
+                <h2>The best place to buy your next car</h2>
+                <p>Range of pre-owned vehicles that can be viewed online or at our dealership</p>
+                <a href="#about" className="btn">Industry's Leaders</a>
+>>>>>>> a779083 (Added Home Page)
             </div>
 
             <div className="home-img">

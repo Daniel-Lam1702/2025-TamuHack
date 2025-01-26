@@ -1,5 +1,9 @@
 .home {
+<<<<<<< HEAD
     width: 100%;
+=======
+    width: 90%;
+>>>>>>> a779083 (Added Home Page)
     height: 100vh;
     display: flex;
     align-items: center;
@@ -7,6 +11,7 @@
     overflow: hidden;
     justify-content: space-between;
     position: relative;
+<<<<<<< HEAD
     background-image: url('../../../images/redcar.jpg');
     background-size: cover;
     background-position: center;
@@ -15,16 +20,28 @@
 .home-content {
     background-image: url('../../../images/redcar.jpg');
     /*max-width: 630px;*/
+=======
+}
+
+.home-content {
+    max-width: 630px;
+>>>>>>> a779083 (Added Home Page)
 }
 
 .home-content h1 {
     font-size: 50px;
+<<<<<<< HEAD
     color: white;
+=======
+>>>>>>> a779083 (Added Home Page)
     line-height: 1.2;
     opacity: 0;
     animation: slideBottom 1s ease forwards;
     animation-delay: 1s;
+<<<<<<< HEAD
     z-index: 30;
+=======
+>>>>>>> a779083 (Added Home Page)
 }
 
 .home-content h2 {
@@ -37,8 +54,12 @@
 
 .home-content p {
     font-size: 15px;
+<<<<<<< HEAD
     margin: 0;
     /*margin: 15px 0 30px;*/
+=======
+    margin: 15px 0 30px;
+>>>>>>> a779083 (Added Home Page)
     opacity: 0;
     animation: slideLeft 1s ease forwards;
     animation-delay: 1.6s;
@@ -62,7 +83,10 @@
     width: 450px;
     height: 450px;
     transform: rotate(45deg);
+<<<<<<< HEAD
     z-index: 1000;
+=======
+>>>>>>> a779083 (Added Home Page)
 }
 
 .home-img .rhombus {
@@ -97,7 +121,11 @@
     height: 700px;
     background: #d20707;
     transform: rotate(45deg);
+<<<<<<< HEAD
     z-index: 900;
+=======
+    z-index: -1;
+>>>>>>> a779083 (Added Home Page)
     opacity: 0;
     animation: rhombus2 1s ease forwards;
 }
