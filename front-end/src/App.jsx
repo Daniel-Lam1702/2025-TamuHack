@@ -7,7 +7,6 @@ import Hero from './components/hero/Hero';
 import Pages from './components/pages/Pages';
 
 function App() {
-<<<<<<< HEAD
   const [count, setCount] = useState(0);
   const[popup, setPopupOpen] = useState(false);
 
@@ -21,8 +20,6 @@ function App() {
       setPopupOpen(false);
   }
 
-=======
->>>>>>> a779083 (Added Home Page)
   return (
     <div className="pt-1.5 m-0 w-full h-full flex flex-col gap-4 border-0">
       <div className="top-0 gap-10 h-full" style={{ display: 'flex' }}>
@@ -37,29 +34,12 @@ function App() {
         </div>
       </div>
 
-      <div className="relative bg-linear-to-t justify-center from-black to-red-500">
-        <div className="w-full px-0 place-items-center">
-          <img className="w-fit" src="./images/redcar.jpg" alt="Red Car" />
-        </div>
-        <div className="absolute inset-0 h-auto w-full bg-black opacity-75 flex-col flex items-center justify-center gap-4 py-8">
-          <h1 className="text-white font-Toyota text-3xl pb-4 items-center">
-            Take this quiz to discover your ideal car.
-          </h1>
-          <button className="rounded-2xl px-3 py-1.5 bg-red-500 text-2xl text-white hover:bg-red-900" onClick="">
-            Learn More
-          </button>
-        </div>
-      </div>
-
-      <div className="w-full px-0 place-items-center">
-        <img className="w-150" src="./images/dirtcar.avif" alt="Dirt Car" />
+      <div className="w-full relative bg-linear-to-t justify-center from-black to-red-500">
+        <Pages className="absolute mr-0 h-full"/>
       </div>
 
       {window.location.pathname === '/Vehicles' && <Vehicles />}
-      {window.location.pathname === '/home' && <App />}
-
-      <Hero />
-      <Pages />
+      {window.location.pathname === '/home' && <App />}  
     </div>
   );
 }
