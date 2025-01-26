@@ -8,17 +8,6 @@ import Pages from './components/pages/Pages';
 
 function App() {
   const [count, setCount] = useState(0);
-  const[popup, setPopupOpen] = useState(false);
-
-  const openPopup = () => 
-  {
-    setPopupOpen(true);
-  }
-
-  const closePopup = () => 
-  {
-      setPopupOpen(false);
-  }
 
   return (
     <div className="pt-1.5 m-0 w-full h-full flex flex-col gap-4 border-0">
