@@ -1,5 +1,5 @@
 .home {
-    width: 100%;
+    width: 90%;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -7,24 +7,18 @@
     overflow: hidden;
     justify-content: space-between;
     position: relative;
-    background-image: url('../../../images/redcar.jpg');
-    background-size: cover;
-    background-position: center;
 }
 
 .home-content {
-    background-image: url('../../../images/redcar.jpg');
-    /*max-width: 630px;*/
+    max-width: 630px;
 }
 
 .home-content h1 {
     font-size: 50px;
-    color: white;
     line-height: 1.2;
     opacity: 0;
     animation: slideBottom 1s ease forwards;
     animation-delay: 1s;
-    z-index: 30;
 }
 
 .home-content h2 {
@@ -37,8 +31,7 @@
 
 .home-content p {
     font-size: 15px;
-    margin: 0;
-    /*margin: 15px 0 30px;*/
+    margin: 15px 0 30px;
     opacity: 0;
     animation: slideLeft 1s ease forwards;
     animation-delay: 1.6s;
@@ -62,7 +55,6 @@
     width: 450px;
     height: 450px;
     transform: rotate(45deg);
-    z-index: 1000;
 }
 
 .home-img .rhombus {
@@ -97,7 +89,7 @@
     height: 700px;
     background: #d20707;
     transform: rotate(45deg);
-    z-index: 900;
+    z-index: -1;
     opacity: 0;
     animation: rhombus2 1s ease forwards;
 }
