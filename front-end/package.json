@@ -31,6 +31,7 @@
     "vite": "^6.0.5"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "^4.32.0"
+    "@rollup/rollup-linux-x64-gnu": "^4.32.0",
+    "@tailwindcss/oxide-linux-x64-gnu": "^4.0.0"
   }
 }
