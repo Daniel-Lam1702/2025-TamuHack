@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'vehicles',
     'rest_framework',
+    'chatbot',
+    'googlesearch',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -49,7 +52,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'api.urls'
 
@@ -80,7 +86,8 @@ from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv()
-
+GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
+GOOGLE_CX = os.getenv('GOOGLE_CX')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',

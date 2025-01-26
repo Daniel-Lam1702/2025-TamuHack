@@ -7,6 +7,10 @@
     overflow: hidden;
     justify-content: space-between;
     position: relative;
+}
+
+.home-content {
+    max-width: 630px;
     background-image: url('../../../images/redcar.jpg');
     background-size: cover;
     background-position: center;

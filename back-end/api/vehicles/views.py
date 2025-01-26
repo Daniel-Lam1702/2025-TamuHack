@@ -17,7 +17,6 @@ class ToyotaVehicleList(APIView):
 
     def get(self, request, *args, **kwargs):
         queryset = ToyotaVehicle.objects.none()  # Start with no results
-
         # Filtering conditions
         filter_conditions = Q()
         filters_applied = False

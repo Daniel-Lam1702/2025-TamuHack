@@ -7,7 +7,7 @@ import Pages from './components/pages/Pages';
 function App() {
   const [count, setCount] = useState(0);
   const[popup, setPopupOpen] = useState(false);
-
+  
   return (
     <Router>
       <Routes>
