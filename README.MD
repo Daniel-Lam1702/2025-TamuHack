@@ -53,7 +53,10 @@ npm run build
     ```
 3. Activate the virtual environment
     ```
-    myenv\Scripts\activate
+    myenv\Scripts\activate (For Windows)
+    ```
+    ```
+    source myenv/bin/activate (For Mac)
     ```
 4. Install Dependencies:
     ```
@@ -70,7 +73,10 @@ npm run build
     ```
     pip freeze > requirements.txt
     ```
-
+8. For starting a new app inside the api project:
+    ```
+    python manage.py startapp <app_name>
+    ```
 ### Version
 
 This project uses:
