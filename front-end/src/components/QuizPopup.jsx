@@ -16,7 +16,6 @@ export default function QuizPopup(setPopup) {
     const [dreamCars, setDreamCars] = useState([]);
     const [quizResults, setQuizResults] = useState([]);
     const [view, setView] = useState("quiz");
-    const [carSelection, setCarSelection] = useState(-1);
     const quizQuestions = [
         {
           question: 'What is your price range?',
@@ -110,8 +109,8 @@ export default function QuizPopup(setPopup) {
             const price_range_values = price_range(quizResults[0]);
             console.log("emissions: "+quizResults[5]);
             const co2_emissions_range = co2_emissions(quizResults[5]);
-            console.log(`http://127.0.0.1:8000/api/toyota_vehicles?min_price=${price_range_values[0]}&max_price=${price_range_values[1]}&${isHybridValue(quizResults[1])}fuel_type=${quizResults[2]}&vehicle_type=${quizResults[4]}&min_co2_emissions=${co2_emissions_range[0]}&max_co2_emissions=${co2_emissions_range[1]}`);
-            axios.get(`http://127.0.0.1:8000/api/toyota_vehicles?min_price=${price_range_values[0]}&max_price=${price_range_values[1]}&${isHybridValue(quizResults[1])}fuel_type=${quizResults[2]}&vehicle_type=${quizResults[4]}&min_co2_emissions=${co2_emissions_range[0]}&max_co2_emissions=${co2_emissions_range[1]}`)
+            //console.log(`http://127.0.0.1:8000/api/toyota_vehicles?min_price=${price_range_values[0]}&max_price=${price_range_values[1]}&${isHybridValue(quizResults[1])}fuel_type=${quizResults[2]}&vehicle_type=${quizResults[4]}&min_co2_emissions=${co2_emissions_range[0]}&max_co2_emissions=${co2_emissions_range[1]}`);
+            axios.get(`http://127.0.0.1:8000/api/toyota_vehicles/?min_price=${price_range_values[0]}&max_price=${price_range_values[1]}&${isHybridValue(quizResults[1])}fuel_type=${quizResults[2]}&vehicle_type=${quizResults[4]}&min_co2_emissions=${co2_emissions_range[0]}&max_co2_emissions=${co2_emissions_range[1]}`)
               .then(response => {
                 let bestThree = [];
                 let count = 0;
@@ -181,10 +180,7 @@ export default function QuizPopup(setPopup) {
                 <div className="w-full px-6">
                     {dreamCars.length > 0 ? (
                         dreamCars.map((vehicle, index) => (
-                            <div key={index} className="mb-4 p-4 border rounded-lg hover:bg-gray-50" onClick={() => {
-                                setCarSelection(vehicle.car_id);
-                                setView("showCar");
-                            }}>
+                            <div key={index} className="mb-4 p-4 border rounded-lg hover:bg-gray-50">
                                 <img src={vehicle.image_url} alt={vehicle.model} className="w-[20rem] h-auto rounded-lg" />
                                 <h4 className="text-2xl text-red-500 font-toyota">{vehicle.model} {vehicle.model_year}</h4>
                                 <p className="text-lg mt-2">
@@ -204,28 +200,13 @@ export default function QuizPopup(setPopup) {
                     className="mt-6 mb-8 ml-20 rounded-2xl text-3xl outline-2 px-3 py-1.5 text-black font-toyota hover:bg-black hover:text-white"
                     onClick={() => {setView("home"); setCurrentQuestionIndex(0); setCurrentQuestion(quizQuestions[0])}} // This will reset the view back to the quiz page
                 >
-                    Back to Home Page
+                    Restart Quiz
                 </button>
             </div>
         );
     }
     
 
-    if(view === "showCar"){
-        return(
-            <div className="overflow-y-auto max-h-[80vh] absolute inset-0 bg-white w-4/5 h-fit pb-8 rounded-2xl flex flex-col justify-top items-start pt-0 mx-16 my-10">
-                <button className="rounded-2xl mt-10 ml-20 text-3xl outline-2 px-3 py-1.5 text-black font-toyota hover:bg-black hover:text-white" onClick={() => setView("results")}>Back</button>
-                <img src={vehicle.image_url} alt={vehicle.model} className="w-[20rem] h-auto rounded-lg" />
-                <h4 className="text-2xl text-red-500 font-toyota">{vehicle.model} {vehicle.model_year}</h4>
-                <p className="text-lg mt-2">
-                    Price: ${vehicle.price.toLocaleString()}<br />
-                    Fuel Type: {vehicle.fuel_type}<br />
-                    Category: {vehicle.atv_category}<br />
-                    MPG: {vehicle.combined_mpg}
-                </p>  
-            </div>
-        )
-    }
 
     return (
         <div className="absolute inset-0 bg-white w-4/5 h-fit pb-8 opacity-100 rounded-2xl flex flex-col justify-top items-start pt-0 mx-16 my-10">
