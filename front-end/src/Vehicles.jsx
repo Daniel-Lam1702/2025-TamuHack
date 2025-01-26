@@ -1,8 +1,6 @@
 import { useState } from 'react'
 
 export default function Vehicles() {
-    const[popup, isPopup] = useState(false);
-
     return (
         <div class="">
             <h1>TESTINGGGGG</h1>
