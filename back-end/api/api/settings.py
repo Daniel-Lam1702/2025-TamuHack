@@ -99,6 +99,16 @@ DATABASES = {
     }
 }
 
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
+
+# Install CORS headers
+INSTALLED_APPS += ["corsheaders"]
+MIDDLEWARE.insert(1, "corsheaders.middleware.CorsMiddleware")
+
+# CORS Configuration
+CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
+CORS_ALLOW_ALL_ORIGINS = "*" in CORS_ALLOWED_ORIGINS
+
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
