@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Vehicles = () => {
     const [textFilters, setTextFilters] = useState({
@@ -39,6 +40,7 @@ const Vehicles = () => {
     });
 
     const [priceSort, setPriceSort] = useState('none');
+    const [vehicles, setVehicles] = useState([]);
 
     const handleTextChange = (field, value) => {
         setTextFilters(prev => ({
@@ -97,6 +99,52 @@ const Vehicles = () => {
         </div>
     );
 
+    const createQueryParams = () => {
+        let queryParams = '';
+
+        // Iterate through textFilters
+        Object.entries(textFilters).forEach(([key, value]) => {
+            if (value !== '') {
+                queryParams += `${key}=${encodeURIComponent(value)}&`;
+            }
+        });
+
+        // Iterate through checkboxFilters
+        Object.entries(checkboxFilters).forEach(([category, items]) => {
+            Object.entries(items).forEach(([item, checked]) => {
+                if (checked) {
+                    queryParams += `${category}=${encodeURIComponent(item)}&`;
+                }
+            });
+        });
+
+        if(priceSort !== 'none') {
+            let sortParam = priceSort === 'low-to-high' ? 'asc' : 'desc';
+            queryParams += `sort_price=${sortParam}&`;
+        }
+
+
+        // Remove trailing '&' if there are any query parameters
+        if (queryParams !== '') {
+            queryParams = queryParams.slice(0, -1);
+        }
+
+        return queryParams;
+    }
+
+    const applyFilters = () => {
+        const queryParams = createQueryParams();
+        console.log('Query Params:', queryParams);
+        axios.get(`http://127.0.0.1:8000/api/toyota_vehicles?${queryParams}`)
+              .then(response => {
+                let responseData = response.data;
+                setVehicles(responseData);
+              })
+              .catch(error => {
+                console.error('There was an error!', error);
+              });
+    }
+
     return (
         <div className="min-h-screen bg-white">
             {/* Header */}
@@ -149,13 +197,38 @@ const Vehicles = () => {
                     {renderCheckboxGroup('atv_category', 'ATV Category')}
                     {renderCheckboxGroup('seats', 'Number of Seats')}
                     {renderCheckboxGroup('model_year', 'Model Year')}
+
+                    <div>
+                        <button 
+                            className="w-full px-4 py-2 bg-red-500 text-white rounded hover:bg-red-900 transition-colors hover:shadow"
+                            onClick={(()=> applyFilters())}
+                        >
+                            Apply Filters
+                        </button>
+                    </div>
                 </div>
 
                 {/* Main Content Area */}
                 <div className="flex-1 p-8">
                     <h1 className="text-3xl font-bold mb-6">Available Vehicles</h1>
                     <div className="bg-gray-100 p-4 rounded-lg min-h-[500px]">
-                        <p className="text-gray-600">Placeholder for vehicle listings</p>
+                    {vehicles.length > 0 ? (
+                        vehicles.map((vehicle, index) => (
+                            <div key={index} className="mb-4 p-4 border rounded-lg hover:bg-gray-50">
+                            <h4 className="text-2xl text-red-500 font-toyota">
+                                {vehicle.model} {vehicle.model_year}
+                            </h4>
+                            <p className="text-lg mt-2">
+                                Price: ${vehicle.price.toLocaleString()}<br />
+                                Fuel Type: {vehicle.fuel_type}<br />
+                                Category: {vehicle.atv_category}<br />
+                                MPG: {vehicle.combined_mpg}
+                            </p>
+                            </div>
+                        ))
+                        ) : (
+                        <div>No Vehicles Matched the</div>
+                        )}
                     </div>
                 </div>
             </div>
