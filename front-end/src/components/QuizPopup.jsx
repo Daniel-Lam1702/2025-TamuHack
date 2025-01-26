@@ -1,8 +1,22 @@
 import { useState } from "react";
 import React from 'react';
 import './QuizPopup.css';
+import axios from "axios";
 
 export default function QuizPopup(setPopup) {
+/*    // {
+    {
+    '< $25,000' -> [min_price=0, max_price=25000],
+    '$20,000-29,000' -> [min_price=20000, max_price=29000],
+    '$30,000-39,000' -> [min_price=30000, max_price=39000],
+    '$40,000-49,000' -> [min_price=40000, max_price=49000],
+    '$50,000+' -> [min_price=50000, max_price=1000000],
+    }
+*/ 
+    const [dreamCars, setDreamCars] = useState([]);
+    const [quizResults, setQuizResults] = useState([]);
+    const [view, setView] = useState("quiz");
+    const [carSelection, setCarSelection] = useState(-1);
     const quizQuestions = [
         {
           question: 'What is your price range?',
@@ -22,7 +36,7 @@ export default function QuizPopup(setPopup) {
         },
         {
             question: 'Any special uses?',
-            options: ['Off-roading', 'Racing', 'None (General Purpose)'],
+            options: ['Off-roading', 'Racing', 'General'],
         },
         {
             question: 'How important is the environmental footprint of your car?',
@@ -51,23 +65,79 @@ export default function QuizPopup(setPopup) {
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [currentQuestion, setCurrentQuestion] = useState(quizQuestions[currentQuestionIndex]);
-    const quizResults = [];
+
+    const price_range = (price) => {
+        if(price === '< $25,000'){
+            return [0,25000];
+        }else if(price === '$20,000-29,000'){
+            return [20000,29000];
+        }else if(price === '$30,000-39,000'){
+            return [30000,39000];
+        }else if(price === '$40,000-49,000'){
+            return [40000,49000];
+        }else if(price === '$50,000+'){
+            return [50000,1000000];
+        }
+    }
+
+    const isHybridValue = (isHybrid) => {
+        if(isHybrid === 'Hybrid')
+        {
+            return 'atv_category=Hybrid&';
+        }
+        else
+        {
+            return '';
+        }
+    }
+
+    const co2_emissions = (emissions) => {
+        console.log(emissions);
+        if (emissions === 'Very important')
+            return [0,173];
+        else if(emissions === 'Somewhat important')
+            return [174,346];
+        else if (emissions === 'Not important')
+            return [347,519];
+    }
+
+    console.log(quizResults);
 
     const nextQuestion = (choices) => {
-        quizResults.push(choices);
+        setQuizResults((prevResults) => [...prevResults, choices]);
         if(currentQuestionIndex == quizQuestions.length) 
-        {
+        {   
+            const price_range_values = price_range(quizResults[0]);
+            console.log("emissions: "+quizResults[5]);
+            const co2_emissions_range = co2_emissions(quizResults[5]);
+            console.log(`http://127.0.0.1:8000/api/toyota_vehicles?min_price=${price_range_values[0]}&max_price=${price_range_values[1]}&${isHybridValue(quizResults[1])}fuel_type=${quizResults[2]}&vehicle_type=${quizResults[4]}&min_co2_emissions=${co2_emissions_range[0]}&max_co2_emissions=${co2_emissions_range[1]}`);
+            axios.get(`http://127.0.0.1:8000/api/toyota_vehicles?min_price=${price_range_values[0]}&max_price=${price_range_values[1]}&${isHybridValue(quizResults[1])}fuel_type=${quizResults[2]}&vehicle_type=${quizResults[4]}&min_co2_emissions=${co2_emissions_range[0]}&max_co2_emissions=${co2_emissions_range[1]}`)
+              .then(response => {
+                let bestThree = [];
+                let count = 0;
+                let responseData = response.data;
+                responseData.forEach(element => {
+                    if(count < 3){
+                        bestThree.push(element);
+                        count++;
+                    }
+                });
+                setDreamCars(bestThree);
+                setView("results");
+              })
+              .catch(error => {
+                console.error('There was an error!', error);
+              });
             //change page to Vehicle Catalog
             //with filters based on quizResults
-            //http://127.0.0.1:8000/api/toyota_vehicles/?
-            // price=quizResults[0]&
-            // key=<value2>&
+            //http://127.0.0.1:8000/api/toyota_vehicles/?min_price=<value1>&max_price=<value2>&
+            // price=quizResults[0]& RANGE ->min_price=<value1>&max_price=<value2>&
+            // if(quizResults[1] = 'Hybrid') then atv_category=Hybrid
             // Fuel_type=quizResults[2]&
-            // key=<value4>&
-            // key=<value5>&
-            // co2_emissions= low OR fuel_type=electric OR epa_fuel_score = GOOD&
-            // vehicle_type=quizResults[7]&
-            // vehicle_size=quizResults[8]
+            // key=<value4>& OMIT FOR NOW
+            // vehicle_type=Racing or General or General/Off-roading& 
+            // co2_emissions= (0-173)(174-346)(347-519)) 
+            // vehicle_size=quizResults[8] OMIT FOR NOW
                 //[0] price
                 //[1] hybrid
                 //[2] fuel
@@ -104,12 +174,65 @@ export default function QuizPopup(setPopup) {
 
     console.log(quizResults);
 
+    if (view === "results") {
+        return (
+            <div className="overflow-y-auto max-h-[80vh] absolute inset-0 bg-white w-4/5 h-fit pb-8 rounded-2xl flex flex-col justify-top items-start pt-0 mx-16 my-10">
+                <h3 className="ml-5 mb-10 mt-5 pt-0 text-6xl text-red-500">Recommended Vehicles</h3>
+                <div className="w-full px-6">
+                    {dreamCars.length > 0 ? (
+                        dreamCars.map((vehicle, index) => (
+                            <div key={index} className="mb-4 p-4 border rounded-lg hover:bg-gray-50" onClick={() => {
+                                setCarSelection(vehicle.car_id);
+                                setView("showCar");
+                            }}>
+                                <img src={vehicle.image_url} alt={vehicle.model} className="w-[20rem] h-auto rounded-lg" />
+                                <h4 className="text-2xl text-red-500 font-toyota">{vehicle.model} {vehicle.model_year}</h4>
+                                <p className="text-lg mt-2">
+                                    Price: ${vehicle.price.toLocaleString()}<br />
+                                    Fuel Type: {vehicle.fuel_type}<br />
+                                    Category: {vehicle.Atv_category}<br />
+                                    MPG: {vehicle.combined_mpg}
+                                </p>
+                            </div>
+                        ))
+                    ) : (
+                        <p className="text-xl text-gray-600">No vehicles match your criteria. Try adjusting your preferences.</p>
+                    )}
+                </div>
+                {/* Back to Home Button */}
+                <button 
+                    className="mt-6 mb-8 ml-20 rounded-2xl text-3xl outline-2 px-3 py-1.5 text-black font-toyota hover:bg-black hover:text-white"
+                    onClick={() => {setView("home"); setCurrentQuestionIndex(0); setCurrentQuestion(quizQuestions[0])}} // This will reset the view back to the quiz page
+                >
+                    Back to Home Page
+                </button>
+            </div>
+        );
+    }
+    
+
+    if(view === "showCar"){
+        return(
+            <div className="overflow-y-auto max-h-[80vh] absolute inset-0 bg-white w-4/5 h-fit pb-8 rounded-2xl flex flex-col justify-top items-start pt-0 mx-16 my-10">
+                <button className="rounded-2xl mt-10 ml-20 text-3xl outline-2 px-3 py-1.5 text-black font-toyota hover:bg-black hover:text-white" onClick={() => setView("results")}>Back</button>
+                <img src={vehicle.image_url} alt={vehicle.model} className="w-[20rem] h-auto rounded-lg" />
+                <h4 className="text-2xl text-red-500 font-toyota">{vehicle.model} {vehicle.model_year}</h4>
+                <p className="text-lg mt-2">
+                    Price: ${vehicle.price.toLocaleString()}<br />
+                    Fuel Type: {vehicle.fuel_type}<br />
+                    Category: {vehicle.atv_category}<br />
+                    MPG: {vehicle.combined_mpg}
+                </p>  
+            </div>
+        )
+    }
+
     return (
         <div className="absolute inset-0 bg-white w-4/5 h-fit pb-8 opacity-100 rounded-2xl flex flex-col justify-top items-start pt-0 mx-16 my-10">
             <h3 className="ml-5 mb-10 mt-5 pt-0 text-8xl text-red-500">Question {currentQuestionIndex + 1}</h3>
             <h3 className = "ml-6 text-4xl text-red-500 font-toyota">{currentQuestion.question}</h3>
             {currentQuestion.options.map((choice, index) => (
-                <div>
+                <div key={choice}>
                     <button className="rounded-2xl mt-10 ml-20 text-3xl outline-2 px-3 py-1.5 text-black font-toyota hover:bg-black hover:text-white" onClick={() => nextQuestion(choice)}>{choice}</button>
                 </div>
             ))}
