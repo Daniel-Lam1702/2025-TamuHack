@@ -1,0 +1,56 @@
+.header{ 
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    width: 80%; 
+    padding: 1px 10%;
+    background: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.logo{
+    font-size: 25px; 
+    color: #222;
+    text-decoration: none;
+    font-weight: 600; 
+    opacity: 0; 
+    animation:  slideRight 1s ease forwards;
+
+}
+
+.navbar a{ 
+    font-size: 25px; 
+    color: #cf0303;
+    text-decoration: none;
+    margin: 0 20px; 
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+    .navbar a:hover, 
+    .navbar a:active { 
+    color: #1743e3;
+    }
+
+    .social-media{
+    display:flex; 
+    justify-content: space-between;
+    width: 150px; 
+    height: 40px;
+    }
+
+    .social-media a{
+    display: inline-block;
+    width: 40px; 
+    height: 40px; 
+    justify-content: center;
+    background: transparent; 
+    border: 2px solid transparent; 
+    }
+
+    .social-media a img{
+    font-size: 24px;
+    }
